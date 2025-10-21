@@ -1,19 +1,20 @@
 package com.worden.common.book.pubsub;
 
 import java.util.Map;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.ReceivedMessage;
 import com.worden.core.book.Book;
 
 /**
- * We need to build ackid as well as part of the object. Hence a mapper is introduced instead of
+ * We need to build ack-id as well as part of the object. Hence a mapper is introduced instead of
  * using the jackson directly
  */
 public class MessageMapper {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(MessageMapper.class);
 
   private final static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -21,6 +22,7 @@ public class MessageMapper {
 
   }
 
+  @SuppressWarnings("unchecked")
   static Book parseMessaage(ReceivedMessage receivedMessage) {
     String jsondata = receivedMessage.getMessage().getData().toStringUtf8();
 
@@ -34,8 +36,7 @@ public class MessageMapper {
           .build();
 
     } catch (JsonProcessingException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      LOGGER.error("Error read book message from pubsub", e);
       return null;
     }
   }

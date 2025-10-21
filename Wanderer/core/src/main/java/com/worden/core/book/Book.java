@@ -11,23 +11,24 @@ import lombok.Value;
 @EqualsAndHashCode(callSuper = true)
 public class Book extends AckMessage<String> {
 
-  private String bookUrl;
-  private long bookId;
-  private String ackId;
+  @Builder.Default
+  private String bookUrl = "";
 
-  @Override
-  public boolean canAcknowledge() {
-    return true;
-  }
+  @Builder.Default
+  private Long bookId = -1L;
+  
+  @Builder.Default
+  private String ackId = "";
+
   @Override
   public boolean ack() {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'ack'");
   }
+
   @Override
   public String getAcknowledment() {
     return ackId;
   }
 
- 
 };

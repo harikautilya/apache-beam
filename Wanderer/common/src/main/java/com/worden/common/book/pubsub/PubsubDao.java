@@ -35,14 +35,26 @@ public class PubsubDao implements BookDao, MessageDao<String, Book> {
     this.credentials = GoogleCredentials.getApplicationDefault();
   }
 
+  /**
+   * {@inheritDoc}
+   * <p>
+   * This method is not implementede as pubsub is not expected to add books.
+   * </p>
+   */
   @Override
   public boolean addBook(Book book) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'addBook'");
   }
 
+  /**
+   * {@inheritDoc}
+   * <p>
+   * Recieve messages and process them.
+   * </p>
+   */
   @Override
-  public List<Book> receivedMessages() {
+  public List<Book> receiveMessages() {
 
     List<Book> books = new ArrayList<>();
 
@@ -70,6 +82,12 @@ public class PubsubDao implements BookDao, MessageDao<String, Book> {
 
   }
 
+  /**
+   * {@inheritDoc}
+   * <p>
+   * Acknowledge messages
+   * </p>
+   */
   @Override
   public void acknowledgeMessage(List<Book> books) {
     try (SubscriberStub subcriber = GrpcSubscriberStub.create(subscriberStubSettings)) {
@@ -89,9 +107,15 @@ public class PubsubDao implements BookDao, MessageDao<String, Book> {
 
   }
 
+  /**
+   * {@inheritDoc}
+   * <p>
+   * Call pubsub dao receiveMessages.
+   * </p>
+   */
   @Override
   public List<Book> getBooks() {
-    return receivedMessages();
+    return receiveMessages();
   }
 
 
