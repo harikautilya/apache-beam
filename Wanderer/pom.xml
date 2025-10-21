@@ -16,6 +16,7 @@
         <beam.version>2.59.0</beam.version>
         <pdfbox.version>3.0.2</pdfbox.version>
         <lombok.version>1.18.34</lombok.version>
+        <gcp.version>26.50.0</gcp.version>
     </properties>
     
     <modules>
@@ -74,6 +75,13 @@
                 <groupId>org.apache.beam</groupId>
                 <artifactId>beam-sdks-java-google-cloud-platform-bom</artifactId>
                 <version>${beam.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.cloud</groupId>
+                <artifactId>libraries-bom</artifactId>
+                <version>${gcp.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

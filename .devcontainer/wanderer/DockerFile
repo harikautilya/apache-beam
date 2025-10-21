@@ -3,6 +3,16 @@ FROM maven:3.9-eclipse-temurin-22-alpine
 # Install necessary packages for beam 
 RUN apk add libc6-compat snappy
 
+# Install python as gcloud needs it
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update python3 py3-pip
+
+# Add gcloud 
+RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz  
+RUN tar -xf google-cloud-cli-linux-x86_64.tar.gz 
+RUN rm  google-cloud-cli-linux-x86_64.tar.gz 
+RUN ./google-cloud-sdk/install.sh -q
+ENV PATH=/google-cloud-sdk/bin:$PATH
 
 WORKDIR  /workspace/wanderer
 

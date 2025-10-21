@@ -1,3 +1,5 @@
 main: environment/dev/main.py
 config:
+  pulumi:tags:
+    env : "Dev"
   gcp:project: worden-440413

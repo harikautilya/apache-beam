@@ -13,7 +13,7 @@ This has to be perfomed every time
 3. `pulumi up` to setup the infra
 
 ## Pulumi project setup
-The has only one env , ideally we would have dev and prod (sometimes staging/pre-prod) but as the project is never expecteded to hit an actual market only dev will be maintained 
+This project has only one env , ideally we would have dev and prod (sometimes staging/pre-prod) but as the project is never expecteded to hit an actual market only dev will be maintained 
 
 ### Stack 
 1. Display available stacks
@@ -26,7 +26,7 @@ pulumn stack select dev
 ```
 
 ### Project Strcuture
-Pulumi hold the concept of resource and components, where components is group of resource provisioned together which acts a single unit. This will take advantage of such grouping to ensure that each application designed as part of this project can effectively take control of their resources
+Pulumi holds the concept of resource and components, where components is group of resource provisioned together which acts a single unit. This project will take advantage of such grouping to ensure that each application designed as part of this project can effectively take control of their resources
 
 Here is an example of component resource 
 ```python
@@ -37,7 +37,7 @@ class MyComponent(pulumi.ComponentResource):
         bucket = s3.Bucket(f"{name}-bucket", opts = pulumi.ResourceOptions(parent=self))
         # Declaring output of the component
         # As a standard partice call it in every compoent event when there is no output
-        self.resgister_ouputs({
+        self.register_outputs({
           "Bucket name" : bucket.bucketDomainName
         })
 ```
